@@ -69,6 +69,20 @@ app.use(db());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
+router.get('/user/get/:access_token', function(req, res) {
+    var access_token = req.params.access_token;
+    console.log(req.token)
+    req.users.findOne({
+        "_id": req.token,
+    }, function(err, data) {
+        if (err) {
+            res.json("Invalid token");
+        } else {
+            res.json(data);
+        }
+    });
+});
 // var login=require('./Routes/login.js')
 // app.use('/', login);
 app.use(express.static(path.join(__dirname, 'public')));
