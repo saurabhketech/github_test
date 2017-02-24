@@ -55,38 +55,6 @@ router.get('/user/get/:access_token', function(req, res) {
 
 <!---- user Registration ------>
 
-router.post('/user/register', function(req, res, next) {
-    var username = req.body.user_name;
-    var password = req.body.password;
-    var cpassword = req.body.confirm_password;
-    var email = req.body.email;
-    var firstname = req.body.first_name;
-    var lastname = req.body.last_name;
-    var pass = crypto.createHash('md5').update(password).digest('hex');
-    if ((username.length > 0) && (password.length > 0) && (cpassword.length > 0) && (email.length > 0) && (firstname.length > 0) && (lastname.length > 0)) {
-        if (password == cpassword) {
-            var record = new req.users({
-                "username": username,
-                "password": pass,
-                "email": email,
-                "firstname": firstname,
-                "lastname": lastname,
-            });
-            record.save(function(err, details) {
-                if (err) {
-                    next("user already exist");
-                } else {
-                    next("Record inserted successfully");
-                }
-            });
-        } else {
-            next("Password is not matched")
-        }
-    } else {
-        next("All field must be filled out");
-    }
-});
-
 
 var express = require('express'); // require express module
 var request = require('request');
