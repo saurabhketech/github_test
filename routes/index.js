@@ -70,6 +70,8 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+
+
 router.get('/user/get/:access_token', function(req, res) {
     var access_token = req.params.access_token;
     console.log(req.token)
