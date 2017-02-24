@@ -86,4 +86,26 @@ router.post('/user/register', function(req, res, next) {
         next("All field must be filled out");
     }
 });
+
+
+var express = require('express'); // require express module
+var request = require('request');
+var router = express.Router();
+var path = require('path');
+var mongoose = require('mongoose'); // require moongose module
+var app = express(); // creatig insatnce of express function
+var bodyParser = require('body-parser'); // required body-parser module
+var db = require('./database/db.js');
+var routes = require('./Routes/register.js'); // create route for index
+app.use(db());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+// var login=require('./Routes/login.js')
+// app.use('/', login);
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/', routes);
+app.listen(8080, function() {
+    console.log("Server started at port number: 8080");
+});
 module.exports = router;
